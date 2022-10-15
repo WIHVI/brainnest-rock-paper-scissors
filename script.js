@@ -62,11 +62,3 @@ const gameOn = () => {
 }
 
 gameOn();
-
-// Prompt Method
-
-function enterResults() {
-    let results = prompt("Please enter the winner");
-    document.getElementById("results").innerHTML =
-        "The winner is " + results;
-}
