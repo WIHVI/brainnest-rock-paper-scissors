@@ -6,12 +6,6 @@ const computerChoice = () => {
     return choices[randomNum];
 };
 
-const playerChoice = () => {
-    const choices = ["Rock", "Paper", "Scissors"];
-    const randomNum = Math.floor(Math.random() * 3);
-    return choices[randomNum];
-};
-
 const playRound = (playerSelection, computerSelection) => {
     const player = playerSelection.toLowerCase();
     const computer = computerSelection.toLowerCase();
@@ -41,7 +35,7 @@ const gameOn = () => {
     const computer = [];
 
     for (let i = 0; i < 5; i++) {
-        const playerSelection = playerChoice();
+        const playerSelection = prompt("Please enter your choice", "rock");
         const computerSelection = computerChoice();
         const result = playRound(playerSelection, computerSelection);
         console.log(result);
