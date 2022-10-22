@@ -1,58 +1,63 @@
-// Rock, Paper, Scissor - Game
+const computerChoiceDisplay = document.getElementById("computer-choice");
+const playerChoiceDisplay = document.getElementById("user-choice");
+const resultDisplay = document.getElementById("result");
+const possibleCohoices = document.querySelectorAll(".btn");
+const playerScoreDisplay = document.getElementById("player-score");
+const computerScoreDisplay = document.getElementById("computer-score");
+const winner = document.getElementById("winner");
+const restartGameButton = document.getElementById("restart");
+let playerSelection;
+let computerSelection;
+let playerScore = 0;
+let computerScore = 0;
+let result;
+
+possibleCohoices.forEach((possibleChoice) =>
+  possibleChoice.addEventListener("click", (e) => {
+    playerSelection = e.target.id;
+    playerChoiceDisplay.innerHTML = playerSelection;
+    computerChoice();
+    playRound();
+
+    playerScoreDisplay.innerHTML = playerScore;
+    computerScoreDisplay.innerHTML = computerScore;
+
+    if (playerScore === 5) {
+      winner.innerHTML = "* Player is the winner! 🥳 *";
+    } else if (computerScore === 5) {
+      winner.innerHTML = "* It's a draw! 😐 *";
+    }
+  })
+);
 
 const computerChoice = () => {
-    const choices = ["Rock", "Paper", "Scissors"];
-    const randomNum = Math.floor(Math.random() * 3);
-    return choices[randomNum];
+  const choices = ["rock", "paper", "scissors"];
+  computerSelection = choices[Math.floor(Math.random() * 3)];
+  computerChoiceDisplay.innerHTML = computerSelection;
 };
 
-const playRound = (playerSelection, computerSelection) => {
-    const player = playerSelection.toLowerCase();
-    const computer = computerSelection.toLowerCase();
-    let result;
+const playRound = () => {
+  if (playerSelection === computerSelection) {
+    result = "it's a draw!";
+  } else if (
+    (playerSelection === "rock" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "rock")
+  ) {
+    result = "you lose!";
+    computerScore++;
+  } else if (
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scissors" && computerSelection === "paper")
+  ) {
+    result = "you win!";
+    playerScore++;
+  }
 
-    if (player === computer) {
-        result = "it's a draw!";
-    } else if (player === "rock" && computer === "paper") {
-        result = "computer win!";
-    } else if (player === "rock" && computer === "scissors") {
-        result = "player win!";
-    } else if (player === "paper" && computer === "rock") {
-        result = "player win!";
-    } else if (player === "paper" && computer === "scissors") {
-        result = "computer win!";
-    } else if (player === "scissors" && computer === "paper") {
-        result = "player win!";
-    } else if (player === "scissors" && computer === "rock") {
-        result = "computer win!";
-    }
+  resultDisplay.innerHTML = result;
+};
 
-    return result;
-}
-
-const gameOn = () => {
-    const player = [];
-    const computer = [];
-
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt("Please enter your choice", "rock");
-        const computerSelection = computerChoice();
-        const result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        if (result === "player win!") {
-            player.push(result);
-        } else if (result === "computer win!") {
-            computer.push(result);
-        }
-    }
-
-    if (player.length > computer.length) {
-        console.log("* Player is the winner! 🥳 *");
-    } else if (player.length < computer.length) {
-        console.log("* Computer is the winner! 🥳 *");
-    } else {
-        console.log("* It's a draw! 😐 *");
-    }
-}
-
-gameOn();
+restartGameButton.addEventListener("click", () => {
+  window.location.reload();
+});
