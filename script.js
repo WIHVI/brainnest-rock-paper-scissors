@@ -6,11 +6,11 @@ const playerScoreDisplay = document.getElementById("player-score");
 const computerScoreDisplay = document.getElementById("computer-score");
 const winner = document.getElementById("winner");
 const restartGameButton = document.getElementById("restart");
-let playerSelection;
-let computerSelection;
+let playerSelection = "";
+let computerSelection = "";
 let playerScore = 0;
 let computerScore = 0;
-let result;
+let result = "";
 
 possibleCohoices.forEach((possibleChoice) =>
   possibleChoice.addEventListener("click", (e) => {
@@ -25,7 +25,7 @@ possibleCohoices.forEach((possibleChoice) =>
     if (playerScore === 5) {
       winner.innerHTML = "* Player is the winner! 🥳 *";
     } else if (computerScore === 5) {
-      winner.innerHTML = "* It's a draw! 😐 *";
+      winner.innerHTML = "* Computer is the winner! 🥳 *";
     }
   })
 );
